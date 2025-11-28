@@ -1,0 +1,901 @@
+/* ============================
+    CORES PRINCIPAIS
+============================ */
+:root {
+    --color-primary: #48CFCB;
+    --color-background: #A7E8E4;
+    --color-card-background: #ffffff;
+    --color-text-dark: #333333;
+    --color-border: #cccccc;
+
+    --color-error: #721c24;
+    --color-success: #155724;
+
+    --background: #ffffff;
+    --foreground: #171717;
+
+    /* Cores Financeiras (Mantenho as originais para não quebrar a seção) */
+    --fundo-pagina: #e0f7fa; 
+    --cor-header: #4db6ac;
+    --cor-concluido: #a5d6a7;
+    --cor-pendente: #ffcc80;
+    --cor-cancelado: #ef9a9a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+/* ============================
+    RESET GLOBAL
+============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ============================
+    LAYOUT GERAL DO APP
+============================ */
+.header {
+    background: #48CFCB;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between; /* Logo à esquerda, menu à direita */
+    align-items: center;
+    height: 80px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+/* Cabeçalho */
+.header {
+    background-color: var(--color-primary);
+    width: 100%;
+    padding: 15px 50px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* MENU À DIREITA */
+.menu-right {
+    display: flex;
+    gap: 40px; /* espaço entre os itens */
+    align-items: center;
+}
+
+.menu-right a {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.menu-right a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* Conteúdo central */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Ícone do Perfil */
+.profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.profile-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(3px);
+}
+
+
+/* ============================
+    CARTÕES (LOGIN / CADASTRO)
+============================ */
+.card-cadastro,
+.card-login {
+    background: var(--color-card-background);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    color: var(--color-text-dark);
+}
+
+.card-title-login {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+    color: var(--color-primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Formulários */
+.cadastro-form,
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.input-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+    outline: none;
+}
+
+/* Botões */
+.btn-cadastro,
+.btn-entrar {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.btn-cadastro:hover,
+.btn-entrar:hover {
+    background-color: #38c4c4;
+}
+
+/* ============================
+    ICONE OLHO DA SENHA
+============================ */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    padding-right: 40px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.toggle-password-btn:hover {
+    opacity: 1;
+}
+
+/* ============================
+    MENSAGENS DE FEEDBACK
+============================ */
+.message {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error-message {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: var(--color-error);
+}
+
+.success-message {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: var(--color-success);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* ============================
+    AGENDA
+============================ */
+.agenda-container {
+    background: var(--color-background);
+    min-height: 100vh;
+}
+
+.menu a {
+    margin: 0 20px;
+    font-size: 18px;
+    color: black;
+}
+
+/* Card da agenda */
+.conteudo {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-agenda {
+    width: 600px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 5px solid var(--color-primary);
+}
+
+.settings {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.linha-dia {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer; /* Adicionado cursor pointer */
+    transition: background-color 0.2s;
+}
+
+.linha-dia:hover:not(.blocked-day) {
+    background-color: #f0f0f0; /* Feedback visual */
+}
+
+.col-dia {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.col-horarios {
+    display: flex;
+    gap: 30px;
+}
+
+.hora {
+    font-size: 14px;
+}
+
+/* -------------------- 1. Modal Container (Ocupa a tela toda) -------------------- */
+.agenda-detalhada-modal {
+    position: fixed; /* Fixa o modal na tela, independente da rolagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente (overlay) */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que fique acima de todos os outros elementos */
+    padding: 20px;
+}
+
+/* -------------------- 2. Conteúdo do Modal -------------------- */
+.modal-content {
+    background-color: var(--color-card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Largura em telas menores */
+    max-width: 600px; /* Largura máxima em telas maiores */
+    max-height: 90vh; /* Altura máxima da viewport */
+    overflow-y: auto; /* Permite rolar se o conteúdo for muito longo */
+    padding: 30px;
+}
+
+/* -------------------- 3. Cabeçalho do Modal -------------------- */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--color-text-dark);
+    font-size: 1.5rem;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: #ff4d4d; /* Cor de destaque ao passar o mouse */
+}
+
+/* -------------------- 4. Lista de Agendamentos -------------------- */
+.appointment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.appointment-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    cursor: pointer; /* Adicionado cursor pointer */
+}
+
+.appointment-item:hover.available {
+    background-color: #d4eaf7; /* Hover no disponível */
+}
+
+.appointment-item.available {
+    background-color: #e9f5ff; /* Fundo claro para horário livre */
+    border-left: 5px solid #007bff;
+    color: #007bff;
+}
+
+.appointment-item.booked {
+    background-color: #fff0f0; /* Fundo claro para horário ocupado */
+    border-left: 5px solid #ff4d4d;
+    color: var(--color-text-dark);
+    cursor: default; /* Não clicável se ocupado */
+}
+
+.hour-detail {
+    font-weight: bold;
+    min-width: 70px; /* Garante alinhamento das horas */
+    font-size: 1.1rem;
+    margin-right: 20px;
+}
+
+.client-info p {
+    margin: 2px 0;
+    font-size: 0.95rem;
+}
+
+.availability-status {
+    font-style: italic;
+    color: #007bff;
+}
+
+/* Opcional: Estilo para a mensagem de seleção no componente principal */
+.selection-message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+}
+
+.appointment-item.break {
+    background-color: #f0f8ff; /* Fundo claro para o intervalo */
+    border-left: 5px solid #ffa500; /* Borda laranja */
+    color: #ffa500;
+    font-weight: bold;
+    cursor: default; /* Não clicável se for intervalo */
+}
+
+/* Estilo para o dia bloqueado na visualização principal */
+.linha-dia.blocked-day {
+    background-color: #ffe0e0; /* Fundo vermelho claro */
+    border-left: 5px solid #ff4d4d; /* Borda vermelha */
+    opacity: 0.7;
+    pointer-events: none; /* Impede clique */
+}
+
+/* -------------------- ESTILO DO ALERT MODAL -------------------- */
+.alert-modal {
+    position: fixed;
+    top: 20px; /* Posiciona no topo */
+    right: 20px;
+    z-index: 1100; /* Acima de todos os outros modais */
+    pointer-events: none; /* Permite interagir com o que está atrás */
+}
+
+.alert-content {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    pointer-events: auto; /* Permite interagir com o alerta */
+    animation: fadeIn 0.3s ease-out;
+}
+
+.alert-content p {
+    margin: 0;
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+.alert-close-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.alert-close-button:hover {
+    opacity: 1;
+}
+
+/* -------------------- ESTILO DO BOTÃO DE CANCELAR (dentro do AgendaDetalhada) -------------------- */
+.cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 5px;
+    transition: background-color 0.2s;
+}
+
+.cancel-button:hover {
+    background-color: #cc0000;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+    FINANÇAS
+============================ */
+
+/* Estilo Geral da Página */
+.finance-page-container {
+    background-color: var(--fundo-pagina);
+    min-height: 100vh;
+    padding-top: 60px; /* Espaço para o header fixo */
+    font-family: Arial, sans-serif;
+}
+
+/* --- Cabeçalho (Header) --- */
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cor-header);
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1em;
+}
+
+nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
+.user-icon {
+    font-size: 1.5em;
+}
+
+/* --- Conteúdo Principal (Dashboard) --- */
+.dashboard-content {
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Coluna Esquerda: KPIs --- */
+.kpi-column {
+    flex: 1; /* Ocupa cerca de 1/3 do espaço */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.kpi-card {
+    background-color: var(--color-card-fundo);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.clientes-card .kpi-icon,
+.clientes-card .kpi-title {
+    color: var(--cor-header);
+}
+
+.saldo-card {
+    background-color: #f0f8ff; /* Um fundo levemente diferente para o saldo */
+}
+
+.saldo-card .kpi-title,
+.saldo-card .kpi-value {
+    color: #1a73e8; /* Azul escuro */
+}
+
+.kpi-title {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.kpi-value {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+/* --- Coluna Direita: Histórico --- */
+.historico-column {
+    flex: 2; /* Ocupa cerca de 2/3 do espaço */
+    padding: 10px;
+}
+
+.historico-column h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.atendimentos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.atendimento-card {
+    background-color: var(--color-card-fundo);
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-left: 8px solid; /* Linha de status */
+    position: relative;
+}
+
+.card-concluido {
+    border-left-color: var(--cor-concluido);
+    background-color: var(--cor-concluido);
+}
+
+.card-pendente {
+    border-left-color: var(--cor-pendente);
+    background-color: var(--cor-pendente);
+}
+
+.card-cancelado {
+    border-left-color: var(--cor-cancelado);
+    background-color: var(--cor-cancelado);
+}
+
+.atendimento-card p {
+    margin: 3px 0;
+}
+
+.card-icone-pessoa {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+}
+
+/* =======================================
+    ESTILOS DA PÁGINA DE PERFIL (ADICIONADOS)
+======================================= */
+
+.perfil-container-base {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-background); /* Fundo da página */
+}
+
+.perfil-main-content {
+    flex-grow: 1;
+    display: flex;
+    gap: 30px; 
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* --- Painel Lateral Esquerdo (Sidebar) --- */
+
+.perfil-sidebar-left {
+    flex-basis: 300px;
+    background-color: var(--color-card-background);
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content; 
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #e0f2f1; /* Cor de fundo neutra */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    border: 4px solid var(--color-primary); /* Destaque principal */
+}
+
+.profile-info-block {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+.profile-info-block .info-label {
+    font-size: 0.85rem;
+    color: #757575; 
+    display: block;
+    margin-bottom: 3px;
+}
+.profile-info-block .info-value {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* --- Painel Direito - Conteúdo Principal --- */
+
+.perfil-content-right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Estilos Comuns para Seções (Trabalhos e Preços) */
+.my-works-section, .price-table-section {
+    background-color: var(--color-card-background);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.my-works-section h3, .price-table-section h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e0f2f1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Carrossel de Trabalhos (Galeria) */
+.works-carousel-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+}
+.works-carousel {
+    display: flex;
+    flex-grow: 1;
+    gap: 15px; 
+    max-width: calc(100% - 70px); 
+    transition: transform 0.3s ease-in-out;
+}
+.work-item {
+    min-width: calc(33.33% - 10px); 
+    height: 150px;
+    background-color: #e0f2f1; /* Fundo claro (sem variável) */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.carousel-nav-btn {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    flex-shrink: 0; 
+    transition: background-color 0.2s, transform 0.1s;
+}
+.carousel-nav-btn:hover:not(:disabled) {
+    background-color: #38c4c4; /* Hover no primário */
+    transform: scale(1.05);
+}
+.carousel-nav-btn:disabled {
+    background-color: #e0f2f1;
+    color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+/* Tabela de Preços */
+.price-table-section {
+    flex-grow: 1; 
+}
+.price-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px;
+}
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f4f7f6; 
+    border-radius: 8px;
+    border-left: 5px solid var(--color-primary); /* Destaque lateral */
+}
+.price-item span {
+    font-size: 1rem;
+    color: #555;
+}
+.price-item strong {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+    font-weight: 700;
+}
+
+/* -------------------------------------------------- */
+/* Estados de Carregamento/Erro (Perfil) */
+/* -------------------------------------------------- */
+
+.loading-state, .error-state {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    padding: 50px;
+}
+
+/* -------------------------------------------------- */
+/* Responsividade Mobile (Max-width: 768px) - Perfil */
+/* -------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .perfil-main-content {
+        flex-direction: column; 
+        padding: 15px;
+        gap: 15px;
+    }
+    .perfil-sidebar-left {
+        flex-basis: auto;
+        width: 100%;
+        order: -1; 
+    }
+    .price-list {
+        grid-template-columns: 1fr; 
+    }
+    .works-carousel-container {
+        gap: 10px;
+    }
+    .works-carousel {
+        max-width: calc(100% - 60px); 
+    }
+    .work-item {
+        min-width: calc(50% - 5px); 
+        height: 120px;
+    }
+    .carousel-nav-btn {
+        width: 30px;
+        height: 30px;
+    }
+    
+}
