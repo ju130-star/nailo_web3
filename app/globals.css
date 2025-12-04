@@ -899,3 +899,270 @@ nav a.active {
     }
     
 }
+/* ============================
+   HEADER
+============================ */
+.header {
+  width: 100%;
+  height: 55px;
+  background: #48cfc5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 35px;
+}
+.header-nav a {
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+
+.header-logo {
+  height: 35px;
+}
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================
+   LAYOUT PRINCIPAL
+============================ */
+.main-content {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 250px 1fr 220px;
+  gap: 25px;
+}
+
+/* ============================
+   CLIENTES
+============================ */
+.clientes-box {
+  width: 180px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 15px 10px;
+  border: 4px solid #2fc9c3;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  width: 250px; 
+}
+
+.cliente-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cliente-item:hover {
+  transform: scale(1.05);
+}
+
+.cliente-foto img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e5e5e5;
+}
+
+.cliente-nome {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #222;
+  font-weight: 500;
+}
+
+.cliente-info-box {
+  align-items: start;
+  width: 300px;
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  margin-left: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+  flex-direction: column;
+}
+
+.cliente-info-placeholder {
+  color: #777;
+  text-align: center;
+  font-size: 16px;
+}
+
+.cliente-info-nome {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.cliente-info-foto {
+  border-radius: 100%;
+  display: block;
+  margin: 10px auto;
+}
+
+.btn-ver-agendamentos {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background: #0aa9a6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+
+/* ============================
+   CALENDÁRIO GRANDE
+============================ */
+.calendario-container {
+  width: 100%;
+  padding: 20px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.titulo-mes {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.dia-semana {
+  background: #0aa9a6;
+  padding: 8px;
+  border-radius: 40px;
+  color: white;
+  font-weight: bold;
+  width: 40px;
+  justify-self: center;
+}
+
+.grid-calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.dia-box,
+.dia-vazio {
+  height: 100px;
+  background: #e7e7e7;
+  border-radius: 10px;
+  padding: 6px;
+  position: relative;
+  cursor: pointer;
+}
+
+.numero-dia {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-weight: bold;
+}
+
+.eventos-dia {
+  margin-top: 22px;
+  padding: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.evento-item {
+  background: white;
+  padding: 3px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  font-size: 11px;
+}
+/* ============================
+   CALENDÁRIO MINI
+============================ */
+.calendar-mini-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calendar-mini-card {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 18px;
+  width: 230px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.calendar-mini-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.calendar-mini-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.calendar-mini-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 10px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+
+.calendar-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-mini-day {
+  padding: 4px 0;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar-mini-day.selected {
+  background: #cfe2ff;
+  color: #2f73ff;
+  font-weight: bold;
+  border-radius: 50%;
+}
+

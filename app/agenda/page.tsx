@@ -1,104 +1,115 @@
-'use client';
-import React, { useState } from "react";
-import { User } from "lucide-react";
+"use client";
 
-type Appointment = { hora: string; nome: string; servico: string };
+import { useState } from "react";
+import Image from "next/image";
+import { User } from "lucide-react";
+import CalendarMini from "@/app/components/CalendarMini";
+import CalendarioCentral from "@/app/components/CalendarioCentral";
+
 
 export default function AgendaPage() {
-  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [diaSelecionado, setDiaSelecionado] = useState<string | null>(null);
+  const [clienteSelecionado, setClienteSelecionado] = useState<any>(null);
 
-  const clientes = ["Pedro", "Josias", "Cleide"];
+  const clientes = [
+  { id: 1, nome: "Anny", foto: "/img/mulher1.png" },
+  { id: 2, nome: "Bianca", foto: "/img/mulher2.png" },
+  { id: 3, nome: "Alessandra", foto: "/img/mulher3.png" }
+];
 
-  const agendamentos: Record<number, Appointment[]> = {
-    3: [
-      { hora: "12:12", nome: "Maria", servico: "Unha em gel" },
-      { hora: "14:30", nome: "Luana", servico: "Alongamento" }
-    ],
-    20: [
-      { hora: "10:00", nome: "Carla", servico: "Retirada" }
-    ]
-  };
+  // CALENDÁRIO (somente exemplo)
+  const diasMes = Array.from({ length: 31 }, (_, i) => i + 1);
 
-  const diasDoMes = Array.from({ length: 31 }, (_, i) => i + 1);
-
-  // Safely get appointments for the selected day (or undefined)
-  const dayAgendamentos = selectedDay !== null ? agendamentos[selectedDay] : undefined;
+  const horarios = [
+    "08:00","09:00","10:00","11:00",
+    "12:00","13:00","14:00","15:00",
+    "16:00","17:00"
+  ];
 
   return (
-    <div className="w-full h-screen bg-[#A7E8E4] flex flex-col">
-      {/* ---------- HEADER ---------- */}
-      <header className="w-full h-16 bg-[#48CFCB] flex justify-between items-center px-6 text-white text-xl font-semibold">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-white rounded-full"></div>
-          Nailo
+    <div className="agenda-container">
+
+    {/* -------------------- HEADER IGUAL AO DA AGENDA -------------------- */}
+      <header className="header">
+        <div className="header-left">
+          <img
+            src="/img/Nailo1.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            className="logo-home"
+          />
         </div>
-        <nav className="flex gap-10">
-          <a href="#">Home</a>
-          <a href="#">Agenda</a>
-          <a href="#">Historico</a>
+
+        <nav className="menu-right">
+          <a href="/home">Home</a>
+          <a href="/agenda">Agenda</a>
+          <a href="/financas">Finanças</a>
+          <a href="/">Sair</a>
+          <a href="/perfil" className="profile-icon">
+          <User size={28} />
+          </a>
         </nav>
-        <User className="w-8 h-8" />
       </header>
 
-      <div className="flex flex-1 p-4 gap-4">
-        {/* ---------- LISTA DE CLIENTES ---------- */}
-        <aside className="w-56 bg-white border border-gray-300 rounded-xl p-4 flex flex-col gap-6">
-          {clientes.map((c) => (
-            <div key={c} className="flex flex-col items-center">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                <User size={40} />
-              </div>
-              <span className="mt-2 text-lg font-semibold">{c}</span>
-            </div>
-          ))}
-        </aside>
+      {/* ------------------- LAYOUT PRINCIPAL ------------------- */}
+      <div className="main-content">
+<div className="layout-agenda">
 
-        {/* ---------- CALENDARIO CENTRAL ---------- */}
-        <main className="flex-1 bg-white border border-gray-300 rounded-xl p-4 flex flex-col items-center">
-          {/* Dias da semana */}
-          <div className="grid grid-cols-7 w-full text-center font-bold text-[#006D66] mb-2">
-            {"DSTQQSS".split("").map((d) => (
-              <div key={d}>{d}</div>
-            ))}
-          </div>
-
-          {/* Dias do mês */}
-          <div className="grid grid-cols-7 grid-rows-5 gap-2 w-full h-full">
-            {diasDoMes.map((dia) => (
-              <button
-                key={dia}
-                onClick={() => setSelectedDay(dia)}
-                className={`border rounded-lg h-20 flex items-start p-1 text-sm bg-gray-200 ${
-                  selectedDay === dia ? "bg-[#48CFCB] text-white" : ""
-                }`}
-              >
-                {dia}
-              </button>
-            ))}
-          </div>
-        </main>
-
-        {/* ---------- AGENDA DO DIA ---------- */}
-        <aside className="w-64 bg-white border border-gray-300 rounded-xl p-4 overflow-y-auto">
-          <h2 className="text-xl font-bold mb-3">Agendamentos</h2>
-          {selectedDay ? (
-            dayAgendamentos && dayAgendamentos.length > 0 ? (
-              dayAgendamentos.map((ag, index) => (
-                <div key={`${selectedDay}-${index}`} className="p-3 border-b border-gray-300">
-                  <p><strong>Hora:</strong> {ag.hora}</p>
-                  <p><strong>Cliente:</strong> {ag.nome}</p>
-                  <p><strong>Serviço:</strong> {ag.servico}</p>
-                </div>
-              ))
-            ) : (
-              <p>Nenhum agendamento neste dia.</p>
-            )
-          ) : (
-            <p>Selecione um dia.</p>
-          )}
-        </aside>
+  {/* ----------- LISTA DE CLIENTES ----------- */}
+  <aside className="clientes-box">
+    {clientes.map(cli => (
+      <div 
+        key={cli.id} 
+        className="cliente-item"
+        onClick={() => setClienteSelecionado(cli)}
+      >
+        <div className="cliente-foto">
+          <Image src={cli.foto} width={60} height={60} alt="foto cliente" />
+        </div>
+        <span className="cliente-nome">{cli.nome}</span>
       </div>
+    ))}
+  </aside>
+
+  <div className="cliente-info-box">
+    {clienteSelecionado ? (
+      <>
+        <h2 className="cliente-info-nome">{clienteSelecionado.nome}</h2>
+        <Image 
+          src={clienteSelecionado.foto} 
+          width={100} 
+          height={100} 
+          alt="foto cliente" 
+          className="cliente-info-foto"
+        />
+        <p><strong>Telefone:</strong> {clienteSelecionado.telefone}</p>
+        <p><strong>Email:</strong> {clienteSelecionado.email}</p>
+        <p><strong>Último serviço:</strong> {clienteSelecionado.ultimoServico}</p>
+      </>
+    ) : (
+      <p className="cliente-info-placeholder">Selecione um cliente</p>
+    )}
+  </div>
+
+</div>
+
+
+
+        {/* ----------- CALENDÁRIO CENTRAL ----------- */}
+  
+    <main className="calendario-central">
+      <CalendarioCentral />
+    </main>
+
+        {/* ----------- MINI CALENDÁRIO ----------- */}
+      <aside className="mini-calendar">
+  <CalendarMini />
+</aside>
+
+
+      </div>
+
     </div>
   );
 }
-

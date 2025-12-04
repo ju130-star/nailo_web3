@@ -3,6 +3,9 @@
 import React, { useState, FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { db } from "@/app/firebase/firebase";
+import { doc, getDoc } from "firebase/firestore";
+
 
 // 🔥 IMPORTS DO FIREBASE
 import { auth } from "@/app/firebase/firebase";
@@ -41,17 +44,30 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      // 🔥 LOGIN REAL COM FIREBASE
-      await signInWithEmailAndPassword(
+      //  LOGIN REAL COM FIREBASE
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         loginData.email,
         loginData.senha
       );
+      // Pega o UID do usuário logado
+      const uid = userCredential.user.uid;
 
-      alert("Login realizado com sucesso!");
+      // 🔥 VERIFICAÇÃO NO FIRESTORE
+      const userDocRef = doc(db, "users", uid);
+      const userDocSnap = await getDoc(userDocRef);
 
-      // Redireciona para a home
-      router.push("/home");
+      if (userDocSnap.exists()) {
+        // Usuário existe no Firestore → Redireciona para Home
+        router.push("/home");
+
+        alert("Login realizado com sucesso!");
+      } else {
+        // Usuário não existe no Firestore
+        setError("Conta não encontrada no banco de dados.");
+        await auth.signOut(); // Opcional: desloga se não tiver registro
+      }
+
     } catch (err: any) {
       setError("Email ou senha incorretos.");
       console.log("Erro Firebase:", err.message);
@@ -101,9 +117,10 @@ const Login: React.FC = () => {
             </div>
 
             {/* 🛑 Removi o Link do botão — agora o botão faz login */}
-            <Link href="/home">
-              <button type="button" className="btn-entrar">Entrar</button>
-            </Link>
+            <button type="submit" className="btn-entrar" disabled={loading}>
+              {loading ? "Entrando..." : "Entrar"}
+            </button>
+
 
             {error && <p style={{ color: "red" }}>{error}</p>}
 

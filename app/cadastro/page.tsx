@@ -4,6 +4,9 @@ import { Eye, EyeOff, X } from 'lucide-react';
 import Link from "next/link";
 import { auth } from "@/app/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "@/app/firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
+
 
 interface FormData {
     email: string;
@@ -51,17 +54,30 @@ const Cadastro: React.FC = () => {
         }
 
         try {
-            // ➡️ CRIAÇÃO REAL NO FIREBASE
-            await createUserWithEmailAndPassword(auth, formData.email, formData.senha);
+            // Cria usuário no Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.senha);
+
+            // Pega o UID do usuário recém-criado
+            const uid = userCredential.user.uid;
+
+            // Salva informações adicionais no Firestore
+            await setDoc(doc(db, "users", uid), {
+                email: formData.email,
+                telefone: formData.telefone,
+                criadoEm: new Date()
+            });
 
             setSuccessMessage("Cadastro realizado com sucesso!");
 
+            // Limpa o formulário
             setFormData({
                 email: '',
                 telefone: '',
                 senha: '',
                 confirmarSenha: '',
             });
+
+
 
             // Se quiser redirecionar automaticamente depois:
             // setTimeout(() => window.location.href = "/", 1500);

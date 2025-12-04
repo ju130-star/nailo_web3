@@ -3,10 +3,10 @@
     "database": "(default)",
     "location": "southamerica-east1",
     "rules": "y",
-    "indexes": "firebase.ts"
+    "indexes": "firestore.rules"
   },
   "hosting": {
-    "public": ".",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
